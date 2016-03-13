@@ -1,2 +1,2 @@
-# test.angularjs-quickstart
-Test Repo for practice on Angular2 Quickstart
+Test Repo for practice on Angular2 + ngrx
+
