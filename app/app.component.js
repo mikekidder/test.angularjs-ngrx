@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', '@ngrx/store', './counter'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,40 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, store_1, counter_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (store_1_1) {
+                store_1 = store_1_1;
+            },
+            function (counter_1_1) {
+                counter_1 = counter_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent() {
+                function AppComponent(store) {
+                    this.store = store;
+                    this.counter = store.select('counter');
                 }
+                AppComponent.prototype.increment = function () {
+                    this.store.dispatch({ type: counter_1.INCREMENT });
+                };
+                AppComponent.prototype.decrement = function () {
+                    this.store.dispatch({ type: counter_1.DECREMENT });
+                };
+                AppComponent.prototype.reset = function () {
+                    this.store.dispatch({ type: counter_1.RESET });
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: '<h1>My First Angular 2 App</h1>'
+                        template: "\n      <h1>My First Angular 2 App</h1>\n      <div>Current Count: {{ counter | async }}</div>\n      <button (click)=\"increment()\">Increment</button>\n      <button (click)=\"decrement()\">Decrement</button>\n    "
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [store_1.Store])
                 ], AppComponent);
                 return AppComponent;
             }());

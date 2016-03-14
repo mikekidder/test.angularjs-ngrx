@@ -20,15 +20,21 @@
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
 
     <!-- 2. Configure SystemJS -->
-    <script>
+    <script> 
       System.config({
         packages: {        
           app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
-      });
+            format: 'register'
+          },
+          '@ngrx/store': {
+            main: 'index.js',
+            format: 'cjs'           
+          }        
+        },
+        map: {
+          '@ngrx/store': 'node_modules/@ngrx/store/dist'
+        }  
+      });     
       System.import('app/main')
             .then(null, console.error.bind(console));
     </script>
